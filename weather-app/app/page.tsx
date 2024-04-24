@@ -1,5 +1,8 @@
 'use client'
+import CurrentWearther from "@/components/CurrentWeather";
 import Navbar from "@/components/Navbar";
+import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
+import { format, parseISO } from "date-fns";
 import Image from "next/image";
 import { useQuery } from "react-query";
 
@@ -60,7 +63,7 @@ interface WeatherData {
 }
 export default function Home() {
   const { isLoading, error, data } = useQuery<WeatherData>('repoData', async () =>
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`).then(res =>
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`).then(res =>
       res.json()
     )
   )
@@ -69,9 +72,36 @@ export default function Home() {
 
   if (error) return 'An error has occurred: ' + error
   console.log(data)
+  const date = data?.list[0]
   return (
     <div>
       <Navbar />
+      <main>
+        <section>
+         <div>
+         <p>{format(parseISO(date?.dt_txt ?? ""), "EEEE")}</p>
+         <p>{format(parseISO(date?.dt_txt ?? ""), "dd.MM.yyyy")}</p>
+         </div>
+       <CurrentWearther>
+        <div>
+        <h2>Current Weather</h2>
+        {convertKelvinToCelsius(date?.main.temp ?? 293.82)}°
+        <span>C</span>
+        </div>
+        <div>
+          <p>Real Feel</p>
+          {convertKelvinToCelsius(date?.main.feels_like ?? 0)}°
+        </div>
+        <div>
+          <span>{convertKelvinToCelsius(date?.main.temp_min ?? 0)}°↓</span>
+          <span>{convertKelvinToCelsius(date?.main.temp_max ?? 0)}°↑</span>
+        </div>
+        <div>
+          {}
+        </div>
+       </CurrentWearther>
+        </section>
+      </main>
     </div>
   );
 }
