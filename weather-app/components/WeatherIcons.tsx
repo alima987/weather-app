@@ -1,10 +1,12 @@
-const WeatherIcons = (props: React.HTMLProps<HTMLDivElement> & { iconName: string }) => {
+
+const WeatherIcons = (props: React.HTMLProps<HTMLDivElement> & { iconname: string }) => {
  return (
 <div {...props}>
-    <img 
+    <img
     width={100}
     height={100}
-    src={`https://openweathermap.org/img/wn/${props.iconName}@4x.png`}/>
+    alt="icon"
+    src={`https://openweathermap.org/img/wn/${props.iconname}@4x.png`}/>
 </div>
  )
 }
