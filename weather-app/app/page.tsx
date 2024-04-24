@@ -1,7 +1,10 @@
 'use client'
 import CurrentWearther from "@/components/CurrentWeather";
 import Navbar from "@/components/Navbar";
+import WeatherIcons from "@/components/WeatherIcons";
+import convertMetersToKilometers from "@/utils/converMetersToKilometers";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
+import convertWindSpeed from "@/utils/convertWindSpeed";
 import { format, parseISO } from "date-fns";
 import Image from "next/image";
 import { useQuery } from "react-query";
@@ -85,6 +88,7 @@ export default function Home() {
        <CurrentWearther>
         <div>
         <h2>Current Weather</h2>
+        <WeatherIcons iconName={data?.list[0].weather[0].icon ?? ''} />
         {convertKelvinToCelsius(date?.main.temp ?? 293.82)}°
         <span>C</span>
         </div>
@@ -97,7 +101,10 @@ export default function Home() {
           <span>{convertKelvinToCelsius(date?.main.temp_max ?? 0)}°↑</span>
         </div>
         <div>
-          {}
+          <span>{`Humidity ${date?.main.humidity}%`}</span>
+          <span>{`Wind ${convertWindSpeed(date?.wind.speed ?? 0)}km/h`}</span>
+          <span>{`Wind Gusts ${convertWindSpeed(date?.wind.gust ?? 0)}km/h`}</span>
+          <span>{`Air Pressure ${date?.main.pressure} hPa`}</span>
         </div>
        </CurrentWearther>
         </section>
