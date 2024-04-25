@@ -9,8 +9,14 @@ import Image from "next/image";
 import { useQuery } from "react-query";
 import Pagination from "@/components/Pagination";
 import { useState } from 'react';
+import WeeklyForecast from "@/components/WeeklyForecast";
+import SunMoon from "@/components/SunMoon";
+import 'leaflet/dist/leaflet.css';
+import WeatherMap from "@/components/WeatherMap";
+
 
 //https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=3cda6a55122315a33e6821040c4177e9&cnt=56
+//https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56
 interface WeatherDetail {
   dt: number;
   main: {
@@ -91,7 +97,9 @@ export default function Home() {
   console.log(data)
   if (!data) return null; 
   const date = data?.list[0]
-
+  const lat = 51.505;
+  const lon = -0.09;
+  
   return (
     <div>
       <Navbar />
@@ -173,6 +181,11 @@ export default function Home() {
        totalPages={totalPages}
        paginate={paginate}
       />
+</div>
+<div>
+  <WeeklyForecast />
+  <SunMoon />
+  <WeatherMap lat={lat} lon={lon} />
 </div>
         </section>
       </main>
