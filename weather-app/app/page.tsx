@@ -65,14 +65,7 @@ interface WeatherData {
     sunset: number;
   };
 }
-export default function Home({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+export default function Home() {
   const { isLoading, error, data } = useQuery<WeatherData>('repoData', async () =>
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`).then(res =>
       res.json()
@@ -80,17 +73,23 @@ export default function Home({
   )
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
-  const totalPages = data?.list ? Math.ceil(data.list.length / itemsPerPage) : 0;
+  const listLength = data?.list.length || 0;
+  const totalPages = Math.ceil(listLength / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data?.list.slice(indexOfFirstItem, indexOfLastItem);
 
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const paginate = (pageNumber: number) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
   };
 
   if (isLoading) return 'Loading...'
 
   if (error) return 'An error has occurred: ' + error
   console.log(data)
+  if (!data) return null; 
   const date = data?.list[0]
 
   return (
@@ -151,20 +150,29 @@ export default function Home({
     </div>
   </div>
 </CurrentWeather>
-<div className="flex justify-between items-center">
-  <div>
-    {data?.list.map((dt, i) => (
-      <div key={i}>
-        <p>{format(parseISO(dt?.dt_txt), "h:mm a")}</p>
-        <WeatherIcons
-          className="w-12 h-12 mx-auto"
-          iconname={dt.weather[0].icon ?? ""}
-        />
-        <p>{convertKelvinToCelsius(dt?.main.temp ?? 0)}°</p>
-      </div>
-    ))}
+<div>
+  <h2 className="flex items-center justify-center">Hourly Weather</h2>
+  <div className="flex items-center justify-center">
+  {currentItems ? (
+            currentItems.map((dt, i) => (
+              <div key={i}>
+                <p>{format(parseISO(dt?.dt_txt), "h:mm a")}</p>
+                <WeatherIcons
+                  className="w-12 h-12 mx-auto"
+                  iconname={dt.weather[0].icon ?? ""}
+                />
+                <p>{convertKelvinToCelsius(dt?.main.temp ?? 0)}°</p>
+              </div>
+            ))
+          ) : (
+            <p>No data available</p>
+          )}
   </div>
-  <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+  <Pagination
+       currentPage={currentPage}
+       totalPages={totalPages}
+       paginate={paginate}
+      />
 </div>
         </section>
       </main>
