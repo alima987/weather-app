@@ -15,6 +15,7 @@ import 'leaflet/dist/leaflet.css';
 import WeatherMap from "@/components/WeatherMap";
 
 
+
 //https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=3cda6a55122315a33e6821040c4177e9&cnt=56
 //https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56
 interface WeatherDetail {
