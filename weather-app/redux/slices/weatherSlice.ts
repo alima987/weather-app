@@ -1,94 +1,87 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+
   interface WeatherData {
     cnt: number;
     city: string;
     lat: number;
     lon: number;
     country: string;
-    timezone: number;
     sunrise: number;
     sunset: number;
-    list: {
-      dt: number;
-      main: {
-        temp: number;
-        feels_like: number;
-        temp_min: number;
-        temp_max: number;
-        pressure: number;
-        sea_level: number;
-        grnd_level: number;
-        humidity: number;
-        temp_kf: number;
-      };
-      weather: {
-        id: number;
-        main: string;
-        description: string;
-        icon: string;
-      }[];
-      clouds: {
-        all: number;
-      };
-      wind: {
-        speed: number;
-        deg: number;
-        gust: number;
-      };
-      visibility: number;
-      pop: number;
-      sys: {
-        pod: string;
-      };
-      dt_txt: string;
-    }[];
+    dt: number;
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+    main: string;
+    description: string;
+    icon: string;
+    speed: number;
+    deg: number;
+    gust: number;
+    visibility: number;
+    dt_txt: string;
   }
   
-const initialState: WeatherData = {
+const initialState: WeatherData = { 
     cnt: 0,
-    city: '',
+    city: '-',
     lat: 0,
     lon: 0,
-    country: '',
-    timezone: 0,
+    country: '-',
     sunrise: 0,
     sunset: 0,
-    list: [],
+    dt: 0,
+    temp: 0,
+    feels_like: 0,
+    temp_min: 0,
+    temp_max: 0,
+    pressure: 0,
+    humidity: 0,
+    main: '-',
+    description: '-',
+    icon: '-',
+    speed: 0,
+    deg: 0,
+    gust: 0,
+    visibility: 0,
+    dt_txt: '-',
 }
 const weatherSlice = createSlice({
     name: 'weather',
     initialState,
     reducers: {
         getWeather: (state, action: PayloadAction<WeatherData>) => {
-            state.city = action.payload.city
-            state.cnt = action.payload.cnt
-            state.country = action.payload.country
-            state.list[0].weather[0].description = action.payload.list[0].weather[0].description
-            state.list[0].dt = action.payload.list[0].dt
-            state.list[0].dt_txt = action.payload.list[0].dt_txt 
-            state.list[0].main.feels_like = action.payload.list[0].main.feels_like
-            state.list[0].main.grnd_level = action.payload.list[0].main.grnd_level
-            state.list[0].wind.gust = action.payload.list[0].wind.gust
-            state.list[0].main.humidity = action.payload.list[0].main.humidity
-            state.list[0].weather[0].icon = action.payload.list[0].weather[0].icon
-            state.lat = action.payload.lat
-            state.lon = action.payload.lon
-            state.list[0].weather[0].main = action.payload.list[0].weather[0].main
-            state.list[0].main.pressure = action.payload.list[0].main.pressure
-            state.list[0].main.sea_level = action.payload.list[0].main.sea_level
-            state.list[0].wind.speed = action.payload.list[0].wind.speed
-            state.list[0].wind.deg = action.payload.list[0].wind.deg
-            state.sunrise= action.payload.sunrise
-            state.sunset = action.payload.sunset
-            state.list[0].main.temp = action.payload.list[0].main.temp
-            state.list[0].main.temp_max = action.payload.list[0].main.temp_max
-            state.list[0].main.temp_min = action.payload.list[0].main.temp_min
-            state.timezone = action.payload.timezone
-            state.list[0].visibility = action.payload.list[0].visibility
+          state.city = action.payload.city;
+          state.cnt = action.payload.cnt
+          state.country = action.payload.country
+          state.deg = action.payload.deg
+          state.description = action.payload.description
+          state.dt = action.payload.dt
+          state.dt_txt = action.payload.dt_txt
+          state.feels_like = action.payload.feels_like
+          state.gust = action.payload.gust
+          state.humidity = action.payload.humidity
+          state.icon = action.payload.icon
+          state.lat = action.payload.lat
+          state.lon = action.payload.lon
+          state.main = action.payload.main
+          state.pressure = action.payload.pressure
+          state.speed = action.payload.speed
+          state.sunrise = action.payload.sunrise
+          state.sunset = action.payload.sunset
+          state.temp = action.payload.temp
+          state.temp_max = action.payload.temp_max
+          state.temp_min = action.payload.temp_min
+          state.visibility = action.payload.visibility
       }
     }
 })
 export const { getWeather } = weatherSlice.actions;
 export default weatherSlice.reducer;
+
+  
 

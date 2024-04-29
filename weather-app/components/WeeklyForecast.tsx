@@ -2,7 +2,9 @@ import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 import WeatherIcons from "./WeatherIcons";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
-interface WeatherDetail {
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+/*interface WeatherDetail {
     dt: number;
     main: {
       temp: number;
@@ -54,16 +56,18 @@ interface WeatherData {
       sunrise: number;
       sunset: number;
     };
-}
+}*/
 
 const WeeklyForecast = () => {
-    const { isLoading, error, data } = useQuery<WeatherData>('repoData', async () =>
+    /*const { isLoading, error, data } = useQuery<WeatherData>('repoData', async () =>
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`).then(res =>
           res.json()
         )
       )
-    const date = data?.list[0]
-    const dates = [...new Set(data?.list.map(entry => new Date(entry.dt * 1000).toISOString().split("T")[0]))];
+    const date = data?.list[0]*/
+    const WeatherData = useSelector((state: RootState) => state.weather)
+   
+    const dates = [...new Set(WeatherData.map(entry => new Date(entry.dt * 1000).toISOString().split("T")[0]))];
     const oneDayForecasts = dates.map(date =>
         data?.list.find(entry => new Date(entry.dt * 1000).toISOString().split("T")[0] === date)
     );
