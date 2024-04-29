@@ -9,7 +9,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
     country: string;
     sunrise: number;
     sunset: number;
-    dt: number;
+    list: [{dt: number;
     temp: number;
     feels_like: number;
     temp_min: number;
@@ -23,7 +23,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
     deg: number;
     gust: number;
     visibility: number;
-    dt_txt: string;
+    dt_txt: string;}]
   }
   
 const initialState: WeatherData = { 
@@ -34,21 +34,23 @@ const initialState: WeatherData = {
     country: '-',
     sunrise: 0,
     sunset: 0,
-    dt: 0,
-    temp: 0,
-    feels_like: 0,
-    temp_min: 0,
-    temp_max: 0,
-    pressure: 0,
-    humidity: 0,
-    main: '-',
-    description: '-',
-    icon: '-',
-    speed: 0,
-    deg: 0,
-    gust: 0,
-    visibility: 0,
-    dt_txt: '-',
+    list: [{
+      dt: 0,
+      temp: 0,
+      feels_like: 0,
+      temp_min: 0,
+      temp_max: 0,
+      pressure: 0,
+      humidity: 0,
+      main: '-',
+      description: '-',
+      icon: '-',
+      speed: 0,
+      deg: 0,
+      gust: 0,
+      visibility: 0,
+      dt_txt: '-',
+  }],
 }
 const weatherSlice = createSlice({
     name: 'weather',
@@ -58,25 +60,21 @@ const weatherSlice = createSlice({
           state.city = action.payload.city;
           state.cnt = action.payload.cnt
           state.country = action.payload.country
-          state.deg = action.payload.deg
-          state.description = action.payload.description
-          state.dt = action.payload.dt
-          state.dt_txt = action.payload.dt_txt
-          state.feels_like = action.payload.feels_like
-          state.gust = action.payload.gust
-          state.humidity = action.payload.humidity
-          state.icon = action.payload.icon
-          state.lat = action.payload.lat
-          state.lon = action.payload.lon
-          state.main = action.payload.main
-          state.pressure = action.payload.pressure
-          state.speed = action.payload.speed
-          state.sunrise = action.payload.sunrise
-          state.sunset = action.payload.sunset
-          state.temp = action.payload.temp
-          state.temp_max = action.payload.temp_max
-          state.temp_min = action.payload.temp_min
-          state.visibility = action.payload.visibility
+          state.list[0].deg = action.payload.list[0].deg
+          state.list[0].description = action.payload.list[0].description
+          state.list[0].dt = action.payload.list[0].dt
+          state.list[0].dt_txt = action.payload.list[0].dt_txt
+          state.list[0].feels_like = action.payload.list[0].feels_like
+          state.list[0].gust = action.payload.list[0].gust
+          state.list[0].humidity = action.payload.list[0].humidity
+          state.list[0].icon = action.payload.list[0].icon
+          state.list[0].main = action.payload.list[0].main
+          state.list[0].pressure = action.payload.list[0].pressure
+          state.list[0].speed = action.payload.list[0].speed
+          state.list[0].temp = action.payload.list[0].temp
+          state.list[0].temp_max = action.payload.list[0].temp_max
+          state.list[0].temp_min = action.payload.list[0].temp_min
+          state.list[0].visibility = action.payload.list[0].visibility
       }
     }
 })

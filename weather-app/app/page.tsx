@@ -14,17 +14,10 @@ import WeatherMap from "@/components/WeatherMap";
 import axios from 'axios';
 import { getWeather } from "@/redux/slices/weatherSlice";
 import { useDispatch, useSelector } from "../redux/store"
-import { RootState } from '../redux/store';
 import Today from "@/components/Today";
 
 export default function Home() {
   const dispatch = useDispatch()
-  
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-
-
   useEffect(() => {
     axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`)
     .then(response => {
@@ -48,6 +41,7 @@ export default function Home() {
           country: country,
           sunrise: sunrise,
           sunset: sunset,
+          list: [{
           dt: dt,
           temp: Number(temp.toFixed(0)),
           feels_like: feels_like,
@@ -63,30 +57,13 @@ export default function Home() {
           gust: gust,
           visibility: visibility,
           dt_txt: dt_txt ,
+        }],
           }))
           })
     .catch(error => {
       console.error("Error fetching weather data:", error);
     });
   }, [])
-  /*const listLength = weathData.length || 0;
-  const totalPages = Math.ceil(listLength / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = weatherData ? [weatherData] : [];
-
-
-
-  const paginate = (pageNumber: number) => {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
-  };*/
-
-  /*if (isLoading) return 'Loading...'
-
-  if (error) return 'An error has occurred: ' + error*/
-
   const lat = 51.505;
   const lon = -0.09;
   
@@ -95,10 +72,9 @@ export default function Home() {
       <Navbar />
       <main>
         <section>
-          
-          
+  <Today />
   <CurrentWeather />
-  <WeeklyForecast />
+  
   <SunMoon />
   <WeatherMap lat={lat} lon={lon} />
         </section>

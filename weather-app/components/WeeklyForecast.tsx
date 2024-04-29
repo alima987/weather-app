@@ -65,11 +65,11 @@ const WeeklyForecast = () => {
         )
       )
     const date = data?.list[0]*/
-    const WeatherData = useSelector((state: RootState) => state.weather)
+    const {list} = useSelector((state: RootState) => state.weather)
    
-    const dates = [...new Set(WeatherData.map(entry => new Date(entry.dt * 1000).toISOString().split("T")[0]))];
+    const dates = [...new Set(list.map(entry => new Date(entry.dt * 1000).toISOString().split("T")[0]))];
     const oneDayForecasts = dates.map(date =>
-        data?.list.find(entry => new Date(entry.dt * 1000).toISOString().split("T")[0] === date)
+        list.find(entry => new Date(entry.dt * 1000).toISOString().split("T")[0] === date)
     );
     return (
         <div>
@@ -81,13 +81,13 @@ const WeeklyForecast = () => {
                   <p>{format(parseISO(d?.dt_txt ?? ""), "dd.MM")}</p>
                   <WeatherIcons
                   className="w-12 h-12 "
-                  iconname={d?.weather[0].icon ?? ''}
+                  iconname={d?.icon ?? ''}
                 />
                 <p className="text-4xl font-bold">
-                 {convertKelvinToCelsius(d?.main.temp ?? 293.82)}
+                 {convertKelvinToCelsius(d?.temp ?? 293.82)}
                   </p>
-                  <p>{convertKelvinToCelsius(d?.main.feels_like ?? 0)}°</p>
-                  <p className="text-gray-600">{d?.weather[0].description}</p>
+                  <p>{convertKelvinToCelsius(d?.feels_like ?? 0)}°</p>
+                  <p className="text-gray-600">{d?.description}</p>
                   </div>
                 ))}
             </div>
