@@ -7,7 +7,6 @@ import { getDayOfMonth } from "@/utils/dayWeekAndMonth";
 
 const WeeklyForecast = () => {
     const WeatherData = useSelector((state: RootState) => state.weather.list)
-    console.log(WeatherData)
    
     const dates = [...new Set(WeatherData.map(entry => new Date(entry.dt * 1000).toISOString().split("T")[0]))];
     const oneDayForecasts = dates.map(date =>

@@ -1,12 +1,7 @@
 'use client'
 import CurrentWeather from "@/components/CurrentWeather";
 import Navbar from "@/components/Navbar";
-import WeatherIcons from "@/components/WeatherIcons";
-import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
-import convertWindSpeed from "@/utils/convertWindSpeed";
-import { format, parseISO } from "date-fns";
-import Pagination from "@/components/Pagination";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WeeklyForecast from "@/components/WeeklyForecast";
 import SunMoon from "@/components/SunMoon";
 import 'leaflet/dist/leaflet.css';
@@ -16,6 +11,7 @@ import { getWeather } from "@/redux/slices/weatherSlice";
 import { useDispatch, useSelector } from "../redux/store"
 import Today from "@/components/Today";
 import HourlyWeather from "@/components/HourlyWeather";
+import { RootState } from "../redux/store";
 
 interface WeatherListItem {
   dt: number;
@@ -42,8 +38,9 @@ interface WeatherListItem {
 }
 export default function Home() {
   const dispatch = useDispatch()
+  const {currentCity} = useSelector((state: RootState) => state.city)
   useEffect(() => {
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=aktau&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`)
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`)
     .then(response => {
       const data = response.data;
       const { cnt } = data
