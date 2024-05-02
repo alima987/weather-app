@@ -74,7 +74,7 @@ export default function Home() {
         <section>
   <Today />
   <CurrentWeather />
-  
+  <WeeklyForecast />
   <SunMoon />
   <WeatherMap lat={lat} lon={lon} />
         </section>

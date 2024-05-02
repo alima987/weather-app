@@ -9,6 +9,7 @@ import { format, parseISO } from "date-fns";
 const CurrentWeather = () => {
    const {list} = useSelector((state: RootState) => state.weather)
    
+   
     return (
         <div className="bg-blue-200 p-4 rounded-md shadow-md">
         <div className="text-center">
