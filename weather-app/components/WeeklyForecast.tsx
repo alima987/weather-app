@@ -6,14 +6,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const WeeklyForecast = () => {
-    const {list} = useSelector((state: RootState) => state.weather)
-    console.log(list)
+    const WeatherData = useSelector((state: RootState) => state.weather.list)
+    console.log(WeatherData)
    
     /*const dates = [...new Set(list.map(entry => new Date(entry.dt * 1000).toISOString().split("T")[0]))];
     const oneDayForecasts = dates.map(date =>
         list.find(entry => new Date(entry.dt * 1000).toISOString().split("T")[0] === date)
     );*/
-    if (!Array.isArray(list)) {
+    if (!Array.isArray(WeatherData)) {
       return <div>Loading...</div>;
   }
 
@@ -21,7 +21,7 @@ const WeeklyForecast = () => {
         <div>
              <h2 className="flex items-center justify-center">WEEKLY WEATHER FORECAST</h2>
              <div>
-                {list.map((d, i) => (
+                {WeatherData.map((d, i) => (
                  <div key={i}>
                   <p>{d?.dt_txt.split(" ")[0]}</p>
                   <WeatherIcons

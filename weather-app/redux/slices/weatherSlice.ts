@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 
-  interface WeatherData {
+  export interface WeatherData {
     cnt: number;
     city: string;
     lat: number;
@@ -60,21 +60,7 @@ const weatherSlice = createSlice({
           state.city = action.payload.city;
           state.cnt = action.payload.cnt
           state.country = action.payload.country
-          state.list[0].deg = action.payload.list[0].deg
-          state.list[0].description = action.payload.list[0].description
-          state.list[0].dt = action.payload.list[0].dt
-          state.list[0].dt_txt = action.payload.list[0].dt_txt
-          state.list[0].feels_like = action.payload.list[0].feels_like
-          state.list[0].gust = action.payload.list[0].gust
-          state.list[0].humidity = action.payload.list[0].humidity
-          state.list[0].icon = action.payload.list[0].icon
-          state.list[0].main = action.payload.list[0].main
-          state.list[0].pressure = action.payload.list[0].pressure
-          state.list[0].speed = action.payload.list[0].speed
-          state.list[0].temp = action.payload.list[0].temp
-          state.list[0].temp_max = action.payload.list[0].temp_max
-          state.list[0].temp_min = action.payload.list[0].temp_min
-          state.list[0].visibility = action.payload.list[0].visibility
+          state.list = action.payload.list
       }
     }
 })

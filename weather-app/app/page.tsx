@@ -16,6 +16,29 @@ import { getWeather } from "@/redux/slices/weatherSlice";
 import { useDispatch, useSelector } from "../redux/store"
 import Today from "@/components/Today";
 
+interface WeatherListItem {
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  weather: {
+    main: string;
+    description: string;
+    icon: string;
+  }[];
+  wind: {
+    speed: number;
+    deg: number;
+    gust: number;
+  };
+  visibility: number;
+  dt_txt: string;
+}
 export default function Home() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -25,12 +48,24 @@ export default function Home() {
       const { cnt } = data
       const { name, country, sunrise, sunset } = data.city;
       const { lat, lon } = data.city.coord
-      const { icon, description, main } = data.list[0].weather[0];
-      const { temp, humidity, feels_like, temp_min, temp_max, pressure} = data.list[0].main;
-      const { speed, deg, gust } = data.list[0].wind;
-      const { dt } = data.list[0]
-      const { visibility } = data.list[0]
-      const { dt_txt } = data.list[0]
+      const weatherList = data.list.map((item: WeatherListItem) => ({
+        dt: item.dt,
+        temp: Number(item.main.temp.toFixed(0)),
+        feels_like: item.main.feels_like,
+        temp_min: item.main.temp_min,
+        temp_max: item.main.temp_max,
+        pressure: item.main.pressure,
+        humidity: item.main.humidity,
+        main: item.weather[0].main,
+        description: item.weather[0].description,
+        icon: item.weather[0].icon,
+        speed: item.wind.speed,
+        deg: item.wind.deg,
+        gust: item.wind.gust,
+        visibility: item.visibility,
+        dt_txt: item.dt_txt,
+      }));
+  
 
       dispatch(
         getWeather({
@@ -41,23 +76,7 @@ export default function Home() {
           country: country,
           sunrise: sunrise,
           sunset: sunset,
-          list: [{
-          dt: dt,
-          temp: Number(temp.toFixed(0)),
-          feels_like: feels_like,
-          temp_min: temp_min,
-          temp_max: temp_max,
-          pressure: pressure,
-          humidity: humidity,
-          main: main,
-          description: description,
-          icon: icon,
-          speed: speed,
-          deg: deg,
-          gust: gust,
-          visibility: visibility,
-          dt_txt: dt_txt ,
-        }],
+          list: weatherList,
           }))
           })
     .catch(error => {
