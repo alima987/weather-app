@@ -15,6 +15,7 @@ import axios from 'axios';
 import { getWeather } from "@/redux/slices/weatherSlice";
 import { useDispatch, useSelector } from "../redux/store"
 import Today from "@/components/Today";
+import HourlyWeather from "@/components/HourlyWeather";
 
 interface WeatherListItem {
   dt: number;
@@ -93,6 +94,7 @@ export default function Home() {
         <section>
   <Today />
   <CurrentWeather />
+  <HourlyWeather />
   <WeeklyForecast />
   <SunMoon />
   <WeatherMap lat={lat} lon={lon} />
