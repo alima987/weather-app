@@ -4,19 +4,20 @@ import { useDispatch } from "react-redux"
 import { getCurrentCity } from "@/redux/slices/citySlice"
 type Props = {
     onSubmit: () => void;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (city: string) => void;
     value: string;
   };
 const Search = (props: Props) => {
-    const [input, setInput] = useState('')
-
-    
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        props.onChange(e.target.value);
+    }
+    console.log(handleChange)
 return (
     <form onSubmit={props.onSubmit}>
     <input
         type="search"
         value={props.value}
-        onChange={(e) => props.onChange(e)}
+        onChange={handleChange}
         className="px-2 py-1 border rounded-l"
         placeholder="Search city"
     />
