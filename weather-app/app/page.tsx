@@ -14,6 +14,7 @@ import HourlyWeather from "@/components/HourlyWeather";
 import { RootState } from "../redux/store";
 import Search from '../components/Search';
 import { getLoading } from "@/redux/slices/loadingSlice";
+import Footer from "@/components/Footer";
 
 interface WeatherListItem {
   dt: number;
@@ -90,8 +91,8 @@ export default function Home() {
   return (
   <div>
   <Navbar />
-    <main>
-      <section>
+    <main className="p-4">
+      <section className="max-w-4xl mx-auto">
   <Search />
   <Today />
   <CurrentWeather />
@@ -101,6 +102,7 @@ export default function Home() {
   <WeatherMap currentCity={currentCity ?? ''} />
       </section>
     </main>
+  <Footer />
   </div>
   );
 }

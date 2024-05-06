@@ -20,17 +20,17 @@ const Search = () => {
         setCity(e.target.value);
     };
 return (
-    <form 
-    onSubmit={handleSearch}>
-    <div>
-    <LuSearch className="w-6 h-6" />
+    <form onSubmit={handleSearch} className="flex items-center justify-center mt-8">
+    <div className="flex items-center border border-gray-300 rounded-md p-1">
+        <LuSearch className="w-6 h-6 mr-2 text-gray-500" />
+        <input
+            type="text"
+            value={city}
+            onChange={handleChange}
+            placeholder="Search city"
+            className="outline-none"
+        />
     </div>
-    <input
-        type="text"
-        value={city} 
-        onChange={handleChange}
-        placeholder="Search city"
-    />
 </form>
 )
 }

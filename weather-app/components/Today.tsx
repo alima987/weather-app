@@ -25,12 +25,12 @@ useEffect(() => {
 
 
   return (
-    <div>
-      <div>
-      <p>{city}, {country}</p>
-      <p>{getDayOfWeek(WeatherData[0].dt_txt ?? '')}</p>
-      <p>{WeatherData[0].dt_txt.split(' ')[0]}</p>
-      {`${localTime}`}
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-between">
+      <div className="text-lg font-bold mb-2 text-left">{city}, {country}</div>
+      <div className="text-right flex justify-between gap-5">
+      <div className="text-sm text-gray-600 mb-2">{getDayOfWeek(WeatherData[0].dt_txt ?? '')}</div>
+      <div className="text-sm text-gray-600 mb-2">{WeatherData[0].dt_txt.split(' ')[0]}</div>
+      <div className="text-sm text-gray-600">{localTime}</div>
       </div>
     </div>
   );
