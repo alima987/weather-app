@@ -16,6 +16,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react"
 import { LuSearch } from "react-icons/lu"
 import Search from '../components/Search';
 import { useWeather } from "@/context/weatherContext";
+import { getLoading } from "@/redux/slices/loadingSlice";
 
 interface WeatherListItem {
   dt: number;
@@ -48,8 +49,10 @@ export default function Home() {
   const dispatch = useDispatch()
   const {currentCity} = useSelector((state: RootState) => state.city)
   useEffect(() => {
+    dispatch(getLoading(true));
     axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`)
     .then(response => {
+      dispatch(getLoading(true));
       const data = response.data;
       const { cnt } = data
       const { name, country, sunrise, sunset } = data.city;
