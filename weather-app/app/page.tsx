@@ -12,6 +12,10 @@ import { useDispatch, useSelector } from "../redux/store"
 import Today from "@/components/Today";
 import HourlyWeather from "@/components/HourlyWeather";
 import { RootState } from "../redux/store";
+import { ChangeEvent, FormEvent, useRef, useState } from "react"
+import { LuSearch } from "react-icons/lu"
+import Search from '../components/Search';
+import { useWeather } from "@/context/weatherContext";
 
 interface WeatherListItem {
   dt: number;
@@ -37,6 +41,10 @@ interface WeatherListItem {
   dt_txt: string;
 }
 export default function Home() {
+  /*const {
+    dispatch,
+    currentCity
+  } = useWeather();*/
   const dispatch = useDispatch()
   const {currentCity} = useSelector((state: RootState) => state.city)
   useEffect(() => {
@@ -80,7 +88,8 @@ export default function Home() {
     .catch(error => {
       console.error("Error fetching weather data:", error);
     });
-  }, [])
+  }, [currentCity])
+  
   const lat = 51.505;
   const lon = -0.09;
   
@@ -89,6 +98,7 @@ export default function Home() {
       <Navbar />
       <main>
         <section>
+  <Search />
   <Today />
   <CurrentWeather />
   <HourlyWeather />

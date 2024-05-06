@@ -11,8 +11,8 @@ const citySlice = createSlice({
     name: 'city',
     initialState,
     reducers: {
-       getCurrentCity: (state, action: PayloadAction<string>) => {
-         state.currentCity = action.payload
+       getCurrentCity: (state, { payload }) => {
+         state.currentCity = payload
        },
        getAccurate: (state, action: PayloadAction<boolean>) => {
          state.isAccurate = action.payload
