@@ -12,10 +12,7 @@ import { useDispatch, useSelector } from "../redux/store"
 import Today from "@/components/Today";
 import HourlyWeather from "@/components/HourlyWeather";
 import { RootState } from "../redux/store";
-import { ChangeEvent, FormEvent, useRef, useState } from "react"
-import { LuSearch } from "react-icons/lu"
 import Search from '../components/Search';
-import { useWeather } from "@/context/weatherContext";
 import { getLoading } from "@/redux/slices/loadingSlice";
 
 interface WeatherListItem {
@@ -42,10 +39,6 @@ interface WeatherListItem {
   dt_txt: string;
 }
 export default function Home() {
-  /*const {
-    dispatch,
-    currentCity
-  } = useWeather();*/
   const dispatch = useDispatch()
   const {currentCity} = useSelector((state: RootState) => state.city)
   useEffect(() => {
@@ -55,7 +48,7 @@ export default function Home() {
       dispatch(getLoading(true));
       const data = response.data;
       const { cnt } = data
-      const { name, country, sunrise, sunset } = data.city;
+      const { name, country, sunrise, sunset, timezone } = data.city;
       const { lat, lon } = data.city.coord
       const weatherList = data.list.map((item: WeatherListItem) => ({
         dt: item.dt,
@@ -83,6 +76,7 @@ export default function Home() {
           lat: lat,
           lon: lon,
           country: country,
+          timezone: timezone,
           sunrise: sunrise,
           sunset: sunset,
           list: weatherList,
@@ -93,23 +87,20 @@ export default function Home() {
     });
   }, [currentCity])
   
-  const lat = 51.505;
-  const lon = -0.09;
-  
   return (
-    <div>
-      <Navbar />
-      <main>
-        <section>
+  <div>
+  <Navbar />
+    <main>
+      <section>
   <Search />
   <Today />
   <CurrentWeather />
   <HourlyWeather />
   <WeeklyForecast />
   <SunMoon />
-  <WeatherMap lat={lat} lon={lon} />
-        </section>
-      </main>
-    </div>
+  <WeatherMap currentCity={currentCity ?? ''} />
+      </section>
+    </main>
+  </div>
   );
 }

@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { format, parseISO } from "date-fns";
 import WeatherIcons from "./WeatherIcons"
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius"
 import Pagination from "./Pagination";

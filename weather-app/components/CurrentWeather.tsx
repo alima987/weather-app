@@ -1,10 +1,8 @@
-import { HTMLProps } from "react"
 import WeatherIcons from "./WeatherIcons"
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius"
 import convertWindSpeed from "@/utils/convertWindSpeed"
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store"
-import { format, parseISO } from "date-fns";
 
 const CurrentWeather = () => {
    const {list} = useSelector((state: RootState) => state.weather)

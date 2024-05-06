@@ -11,12 +11,11 @@ const Search = () => {
     console.log(currentCity)
     const handleSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (city && city !== '') {
-            dispatch(getCurrentCity(city));
-          }
+        if (city && city.trim() !== '') {
+            dispatch(getCurrentCity(city.trim()));
+        }
           return;
     };
-    console.log(dispatch(getCurrentCity(city)))
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setCity(e.target.value);
     };

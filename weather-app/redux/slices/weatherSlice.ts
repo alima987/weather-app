@@ -7,6 +7,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
     lat: number;
     lon: number;
     country: string;
+    timezone: number;
     sunrise: number;
     sunset: number;
     list: [{dt: number;
@@ -32,6 +33,7 @@ const initialState: WeatherData = {
     lat: 0,
     lon: 0,
     country: '-',
+    timezone: 0,
     sunrise: 0,
     sunset: 0,
     list: [{
@@ -57,9 +59,10 @@ const weatherSlice = createSlice({
     initialState,
     reducers: {
         getWeather: (state, action: PayloadAction<WeatherData>) => {
-          state.city = action.payload.city;
+          state.city = action.payload.city
           state.cnt = action.payload.cnt
           state.country = action.payload.country
+          state.timezone = action.payload.timezone
           state.list = action.payload.list
       }
     }

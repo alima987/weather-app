@@ -1,24 +1,54 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { LatLngExpression } from 'leaflet';
+import { useEffect, useState } from 'react';
 
 interface WeatherMapProps {
-  lat: number;
-  lon: number;
+  currentCity: string;
 }
 
-const WeatherMap = ({ lat, lon }: WeatherMapProps) => {
-  const center: LatLngExpression = [lat, lon];
+const WeatherMap = ({ currentCity }: WeatherMapProps) => {
+  const [center, setCenter] = useState<LatLngExpression | null>(null);
+  const [cityCoordinates, setCityCoordinates] = useState<LatLngExpression | null>(null);
 
+  useEffect(() => {
+    const getCoordinates = async () => {
+      try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`);
+        const data = await response.json();
+        if (response.ok) {
+          const { coord } = data;
+          setCenter([coord.lat, coord.lon]);
+          setCityCoordinates([coord.lat, coord.lon]);
+        } else {
+          console.error("Failed to fetch coordinates:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching coordinates:", error);
+      }
+    };
+
+    if (currentCity) {
+      getCoordinates();
+    }
+  }, [currentCity]);
+
+  if (!center) {
+    return null;
+  }
+console.log(cityCoordinates)
   return (
-    <MapContainer center={center} zoom={10} style={{ height: '400px', width: '100%' }}>
+    <MapContainer center={center} zoom={10} className="h-96 w-full">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      {cityCoordinates && (
+        <Marker position={cityCoordinates}>
+          <Popup>{currentCity}</Popup>
+        </Marker>
+      )}
     </MapContainer>
   );
 };
 
 export default WeatherMap;
-
-
