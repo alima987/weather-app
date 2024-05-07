@@ -9,23 +9,23 @@ const Pagination = ({
 }) => {
   return (
     <nav>
-      <ul className="pagination flex justify-center">
-        <li className="page-item">
+      <ul className="flex justify-center items-center mt-4">
+        <li className="mr-2">
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            className="page-link"
+            className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 disabled:opacity-50"
           >
-            &lt;
+            &lt; 
           </button>
         </li>
-        <li className="page-item">
+        <li className="ml-2">
           <button
             onClick={() => paginate(currentPage + 1)}
-            className="page-link"
+            className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 disabled:opacity-50"
             disabled={currentPage === totalPages}
           >
-            &gt;
+             &gt;
           </button>
         </li>
       </ul>

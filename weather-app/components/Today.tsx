@@ -25,7 +25,7 @@ useEffect(() => {
 
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-between">
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-between mb-10">
       <div className="text-lg font-bold mb-2 text-left">{city}, {country}</div>
       <div className="text-right flex justify-between gap-5">
       <div className="text-sm text-gray-600 mb-2">{getDayOfWeek(WeatherData[0].dt_txt ?? '')}</div>

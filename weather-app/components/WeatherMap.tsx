@@ -37,7 +37,7 @@ const WeatherMap = ({ currentCity }: WeatherMapProps) => {
   }
 console.log(cityCoordinates)
   return (
-    <MapContainer center={center} zoom={10} className="h-96 w-full">
+    <MapContainer center={center} zoom={10} className="h-96 w-full rounded-lg overflow-hidden shadow-lg">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -92,7 +92,7 @@ export default function Home() {
   <div>
   <Navbar />
     <main className="p-4">
-      <section className="max-w-4xl mx-auto">
+      <section className="max-w-4xl mx-auto bg-blue-gray-100">
   <Search />
   <Today />
   <CurrentWeather />

@@ -20,7 +20,7 @@ const Search = () => {
         setCity(e.target.value);
     };
 return (
-    <form onSubmit={handleSearch} className="flex items-center justify-center mt-8">
+    <form onSubmit={handleSearch} className="flex items-center justify-end">
     <div className="flex items-center border border-gray-300 rounded-md p-1">
         <LuSearch className="w-6 h-6 mr-2 text-gray-500" />
         <input

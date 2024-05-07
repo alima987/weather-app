@@ -19,31 +19,31 @@ const HourlyWeather = () => {
       setCurrentPage(pageNumber);
     }
   };
-    return (
-        <div>
-        <h2 className="flex items-center justify-center">Hourly Weather</h2>
-        <div className="flex items-center justify-center">
-        {currentItems ? (
-                  currentItems.map((dt, i) => (
-                    <div key={i}>
-                      <p>{formatTime(dt.dt_txt)}</p>
-                      <WeatherIcons
-                        className="w-12 h-12 mx-auto"
-                        iconname={dt.icon ?? ""}
-                      />
-                      <p>{convertKelvinToCelsius(dt?.temp ?? 0)}°</p>
-                    </div>
-                  ))
-                ) : (
-                  <p>No data available</p>
-                )}
-        </div>
-        <Pagination
-             currentPage={currentPage}
-             totalPages={totalPages}
-             paginate={paginate}
-            />
-      </div>
-    )
+  return (
+    <div className="mb-10">
+    <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4">HOURLY WEATHER</h2>
+    <div className="flex flex-wrap items-center justify-center gap-7">
+    {currentItems ? (
+              currentItems.map((dt, i) => (
+                <div key={i}>
+                  <p>{formatTime(dt.dt_txt)}</p>
+                  <WeatherIcons
+                    className="w-12 h-12 mx-auto"
+                    iconname={dt.icon ?? ""}
+                  />
+                  <p>{convertKelvinToCelsius(dt?.temp ?? 0)}°</p>
+                </div>
+              ))
+            ) : (
+              <p>No data available</p>
+            )}
+    </div>
+    <Pagination
+         currentPage={currentPage}
+         totalPages={totalPages}
+         paginate={paginate}
+        />
+  </div>
+)
 }
 export default HourlyWeather

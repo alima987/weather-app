@@ -16,22 +16,30 @@ const WeeklyForecast = () => {
 
     return (
         <div>
-             <h2 className="flex items-center justify-center">WEEKLY WEATHER FORECAST</h2>
-             <div>
+            <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4">WEEKLY WEATHER FORECAST</h2>
+            <div className="flex w-full flex-col gap-4 mb-10">
                 {oneDayForecasts.map((d, i) => (
-                 <div key={i}>
-                  <p>{getDayOfWeek(d?.dt_txt ?? '')}</p>
-                  <p>{getDayOfMonth(d?.dt_txt ?? '')}</p>
-                  <WeatherIcons
-                  className="w-12 h-12 "
-                  iconname={d?.icon ?? ''}
-                />
-                <p className="text-4xl font-bold">
-                 {convertKelvinToCelsius(d?.temp ?? 293.82)}
-                  </p>
-                  <p>{convertKelvinToCelsius(d?.feels_like ?? 0)}°</p>
-                  <p className="text-gray-600">{d?.description}</p>
-                  </div>
+                    <div key={i} className="flex flex-wrap items-center justify-between p-5 mx-2 my-2 bg-100 rounded-lg shadow-md gap-10">
+                        <div className="flex flex-col px-4">
+                        <p className="text-lg font-bold">{getDayOfWeek(d?.dt_txt ?? '')}</p>
+                        <p>{getDayOfMonth(d?.dt_txt ?? '')}</p>
+                        </div>
+                        <WeatherIcons
+                            className="w-12 h-12"
+                            iconname={d?.icon ?? ''}
+                        />
+                        <p className="text-4xl font-bold">
+                            {convertKelvinToCelsius(d?.temp ?? 293.82)}°
+                        </p>
+                        <div>
+                        <p className="">Feels like</p>
+                        <p>{convertKelvinToCelsius(d?.feels_like ?? 0)}°</p>
+                        </div>
+                        <div className="flex flex-col px-4">
+                        <p className="text-gray-600 font-bold">{d?.main}</p>
+                        <p className="text-gray-600">{d?.description}</p>
+                        </div>
+                    </div>
                 ))}
             </div>
         </div>
