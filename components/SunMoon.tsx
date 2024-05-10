@@ -15,7 +15,7 @@ const SunMoon = () => {
                 </div>
                 <div>
                     <p className="text-sm font-semibold">Sunrise</p>
-                    <p>{format(fromUnixTime(sunrise ?? 0), "H:mm")}</p>
+                    <p>{format(fromUnixTime(sunrise ?? 0), "HH:mm")}</p>
                 </div>
             </div>
             <div className="flex justify-center">
@@ -24,7 +24,7 @@ const SunMoon = () => {
                 </div>
                 <div>
                     <p className="text-sm font-semibold">Sunset</p>
-                    <p>{format(fromUnixTime(sunset ?? 0), "H:mm")}</p>
+                    <p>{format(fromUnixTime(sunset ?? 0), "HH:mm")}</p>
                 </div>
             </div>
             </div>

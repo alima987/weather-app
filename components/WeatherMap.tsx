@@ -8,7 +8,6 @@ interface WeatherMapProps {
 
 const WeatherMap = ({ currentCity }: WeatherMapProps) => {
   const [center, setCenter] = useState<LatLngExpression | null>(null);
-  const [cityCoordinates, setCityCoordinates] = useState<LatLngExpression | null>(null);
 
   useEffect(() => {
     const getCoordinates = async () => {
@@ -18,7 +17,6 @@ const WeatherMap = ({ currentCity }: WeatherMapProps) => {
         if (response.ok) {
           const { coord } = data;
           setCenter([coord.lat, coord.lon]);
-          setCityCoordinates([coord.lat, coord.lon]);
         } else {
           console.error("Failed to fetch coordinates:", data.message);
         }
@@ -31,19 +29,25 @@ const WeatherMap = ({ currentCity }: WeatherMapProps) => {
       getCoordinates();
     }
   }, [currentCity]);
+  useEffect(() => {
+    if (currentCity && center) {
+      setCenter(center);
+    }
+  }, [currentCity, center]);
 
   if (!center) {
     return null;
   }
-console.log(cityCoordinates)
+console.log(center)
+console.log(currentCity)
   return (
     <MapContainer center={center} zoom={10} className="h-96 w-full rounded-lg overflow-hidden shadow-lg">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {cityCoordinates && (
-        <Marker position={cityCoordinates}>
+      {center && (
+        <Marker position={center}>
           <Popup>{currentCity}</Popup>
         </Marker>
       )}

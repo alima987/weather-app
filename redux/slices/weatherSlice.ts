@@ -61,8 +61,12 @@ const weatherSlice = createSlice({
         getWeather: (state, action: PayloadAction<WeatherData>) => {
           state.city = action.payload.city
           state.cnt = action.payload.cnt
+          state.lat = action.payload.lat
+          state.lon = action.payload.lon
           state.country = action.payload.country
           state.timezone = action.payload.timezone
+          state.sunrise = action.payload.sunrise
+          state.sunset = action.payload.sunset
           state.list = action.payload.list
       }
     }

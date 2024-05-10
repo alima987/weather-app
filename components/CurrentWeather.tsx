@@ -11,7 +11,7 @@ const CurrentWeather = () => {
    return (
 <div className="bg-200 p-4 rounded-md shadow-md mb-10">
       <div className="text-center">
-      <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4">CURRENT WEATHER</h2>
+      <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4">CURRENT FORECAST </h2>
     </div>
   <div className="flex flex-wrap items-center justify-around">
     <div className="mt-4 flex flex-wrap items-center justify-start">

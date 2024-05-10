@@ -2,13 +2,11 @@ import { LuSearch } from "react-icons/lu"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getCurrentCity } from "@/redux/slices/citySlice"
-import { RootState } from "@/redux/store"
 
+  
 const Search = () => {
     const dispatch = useDispatch();
     const [city, setCity] = useState('');
-    const { currentCity } = useSelector((state: RootState) => state.city);
-    console.log(currentCity)
     const handleSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (city && city.trim() !== '') {
