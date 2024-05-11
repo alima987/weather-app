@@ -16,7 +16,7 @@ const WeeklyForecast = () => {
 
     return (
         <div>
-            <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4">WEEKLY FORECAST</h2>
+            <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4 mx-4">WEEKLY FORECAST</h2>
             <div className="flex w-full flex-col gap-4 mb-10">
                 {oneDayForecasts.map((d, i) => (
                <div key={i} className="w-full flex flex-wrap items-center justify-between p-5 mx-2 my-2 bg-100 rounded-lg shadow-md gap-4">

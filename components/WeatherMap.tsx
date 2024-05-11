@@ -29,15 +29,11 @@ const WeatherMap = ({ currentCity }: WeatherMapProps) => {
       getCoordinates();
     }
   }, [currentCity]);
-  useEffect(() => {
-    if (currentCity && center) {
-      setCenter(center);
-    }
-  }, [currentCity, center]);
 
   if (!center) {
     return null;
   }
+
   return (
     <MapContainer center={center} zoom={10} className="h-96 w-full rounded-lg overflow-hidden shadow-lg">
       <TileLayer

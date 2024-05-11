@@ -21,7 +21,7 @@ const HourlyWeather = () => {
   };
   return (
     <div className="mb-10">
-    <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4">HOURLY FORECAST</h2>
+    <h2 className="text-sm text-gray-600 flex items-center justify-start mb-4 mx-4">HOURLY FORECAST</h2>
     <div className="flex flex-wrap items-center justify-center gap-7">
     {currentItems ? (
               currentItems.map((dt, i) => (

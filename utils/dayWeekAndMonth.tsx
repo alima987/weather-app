@@ -9,5 +9,5 @@ export default function getDayOfWeek(dateString: string) {
     const date = new Date(dateString);
     const dayOfMonth = date.getDate();
     const month = date.getMonth() + 1; 
-    return `${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}.${month < 10 ? '0' : ''}${month}`;
+    return `${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}/${month < 10 ? '0' : ''}${month}`;
   }

@@ -20,7 +20,7 @@ const CurrentWeather = () => {
         className="w-12 h-12 mx-auto"
         iconname={list[0].icon ?? ""}
       />
-      <p className="text-gray-600 w-1/2">{list[0].description}</p>
+      <p className="text-gray-600 w-1/2 mx-auto">{list[0].description}</p>
       </div>
       <div className="flex flex-col px-4 ">
       <p className="text-4xl font-bold w-1/2">
