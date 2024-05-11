@@ -38,8 +38,6 @@ const WeatherMap = ({ currentCity }: WeatherMapProps) => {
   if (!center) {
     return null;
   }
-console.log(center)
-console.log(currentCity)
   return (
     <MapContainer center={center} zoom={10} className="h-96 w-full rounded-lg overflow-hidden shadow-lg">
       <TileLayer

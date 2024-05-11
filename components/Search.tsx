@@ -1,6 +1,7 @@
+'use client';
 import { LuSearch } from "react-icons/lu"
 import { ChangeEvent, FormEvent, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { getCurrentCity } from "@/redux/slices/citySlice"
 
   

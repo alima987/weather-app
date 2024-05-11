@@ -1,21 +1,23 @@
 'use client'
-import CurrentWeather from "@/components/CurrentWeather";
-import Navbar from "@/components/Navbar";
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic'
 import { useEffect } from 'react';
-import WeeklyForecast from "@/components/WeeklyForecast";
-import SunMoon from "@/components/SunMoon";
 import 'leaflet/dist/leaflet.css';
-import WeatherMap from "@/components/WeatherMap";
 import axios from 'axios';
 import { getWeather } from "@/redux/slices/weatherSlice";
 import { useDispatch, useSelector } from "../redux/store"
-import Today from "@/components/Today";
-import HourlyWeather from "@/components/HourlyWeather";
 import { RootState } from "../redux/store";
-import Search from '../components/Search';
 import { getLoading } from "@/redux/slices/loadingSlice";
-import Footer from "@/components/Footer";
 
+const CurrentWeather = dynamic(() => import('@/components/CurrentWeather'), { ssr: false })
+const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false })
+const WeeklyForecast = dynamic(() => import('@/components/WeeklyForecast'), { ssr: false })
+const SunMoon = dynamic(() => import('@/components/SunMoon'), { ssr: false })
+const WeatherMap = dynamic(() => import('@/components/WeatherMap'), { ssr: false })
+const Today = dynamic(() => import('@/components/Today'), { ssr: false })
+const HourlyWeather = dynamic(() => import('@/components/HourlyWeather'), { ssr: false })
+const Search = dynamic(() => import('../components/Search'), { ssr: false })
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
 interface WeatherListItem {
   dt: number;
   main: {
@@ -46,7 +48,7 @@ export default function Home() {
     dispatch(getLoading(true));
     axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&cnt=56`)
     .then(response => {
-      dispatch(getLoading(true));
+      dispatch(getLoading(false));
       const data = response.data;
       const { cnt } = data
       const { name, country, sunrise, sunset, timezone } = data.city;
@@ -90,6 +92,7 @@ export default function Home() {
   
   return (
   <div>
+  <Suspense fallback={<div>Loading...</div>}>
   <Navbar />
     <main className="p-4">
       <section className="max-w-4xl mx-auto bg-blue-gray-100">
@@ -103,6 +106,7 @@ export default function Home() {
       </section>
     </main>
   <Footer />
+  </Suspense>
   </div>
   );
 }
