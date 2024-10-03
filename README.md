@@ -15,7 +15,8 @@ A real-time weather app developed using Next.js, TypeScript, and Redux Toolkit. 
 
 - React
 - TypeScript
-- NextJs
+- NextJs 14
+- App Router
 - Redux Toolkit
 - Tailwind
 
